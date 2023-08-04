@@ -84,16 +84,27 @@ def save_file(df, file_name, root=config.data_path,
 # =============================================================================
 # Descriptive Statistics
 # =============================================================================
-# Counter tables
-def desc_tables_count(inputs, normalize=True):
-    if normalize:
-        print(inputs.value_counts(normalize=True))
-    else:
-        print(inputs.value_counts())
-        
-# Crosstabs
-def desc_crosstab(inputs_x,inputs_y,normalize=False):
-    print(pd.crosstab(inputs_x,inputs_y,normalize=normalize))
+def check_df(dataframe, head=5):
+    """Provides a df overview including shape, structure, data types, nulls, duplicates, central tendency and disperssion.
+    :param dataframe: A pandas df to summarize
+    :param head: How many rows of head to show
+    :return: Summary string as a table
+  """
+    print(" DATA SHAPE ".center(70,'-'))
+    print('Rows: {}'.format(dataframe.shape[0]))
+    print('Columns: {}'.format(dataframe.shape[1]))
+    print(" DATA TYPES ".center(70,'-'))
+    print(dataframe.dtypes)
+    print(" HEAD ".center(70,'-'))
+    print(dataframe.head(head))
+    print(" TAIL ".center(70,'-'))
+    print(dataframe.tail(head))
+    print(" MISSING VALUES ".center(70,'-'))
+    print(dataframe.isnull().sum())
+    print(" DUPLICATED VALUES ".center(70,'-'))
+    print(dataframe.duplicated().sum())
+    print(" CENTRAL TENDENCY & DISPERSSION ".center(70,'-'))
+    print(dataframe.describe([0.10, 0.25, 0.30, 0.40, 0.50, 0.60, 0.75, 0.80, 0.90]).T)
 
 
 # =============================================================================
